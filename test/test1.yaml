@@ -1,0 +1,11 @@
+default:
+  config1:
+    key1: value1
+    key2: value2
+    key3: value3
+
+environment:
+- name: env1
+  config:
+    config1:
+      key2: env1-value2

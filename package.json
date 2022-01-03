@@ -1,0 +1,29 @@
+{
+  "name": "per-env-config",
+  "version": "0.1.1",
+  "description": "Collects configs from multiple sources and handles overrides per environment.",
+  "type": "module",
+  "main": "src/config.mjs",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha --exclude test/testImpl.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/capnajax/per-env-config.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/capnajax/per-env-config/issues"
+  },
+  "homepage": "https://github.com/capnajax/per-env-config#readme",
+  "dependencies": {
+    "args-and-envs": "^0.4.1",
+    "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.21",
+    "mocha": "^9.1.3",
+    "test-battery": "^0.2.1"
+  }
+}

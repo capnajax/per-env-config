@@ -1,0 +1,11 @@
+default:
+  config1:
+    key3: test2-value3
+  config2:
+    key1: config2-value1
+
+environment:
+- name: env1
+  config:
+    config1:
+      key2: env1-value2-2
