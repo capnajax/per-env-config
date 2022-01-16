@@ -5,7 +5,6 @@ import fs from 'fs';
 import TestBattery from 'test-battery';
 import { spawn } from 'child_process';
 import YAML from 'yaml';
-import { json } from 'stream/consumers';
 
 describe('correct configs async', function() {
 
@@ -402,6 +401,57 @@ describe('correct configs sync', function() {
     })
   });
 
+  it('two config files with env combined', function(done) {
+
+    let battery = new TestBattery('single config file');
+
+    new Promise((resolve, reject) => {
+      let testSpawn = spawn('test/testImpl.js', [
+        '--config=test/test1.yaml:test/test2.yaml', '--env=env1',
+        '--sync=true'
+      ]);
+      let data = '';
+      testSpawn.stdout.on('data', chunk => {
+        data += chunk.toString();
+      });
+      testSpawn.stderr.on('data', chunk => {
+        console.error(chunk.toString());
+      });
+      testSpawn.on('close', code => {
+        if (0 === code) {
+          let dataObj = JSON.parse(data);
+          battery.test('key1')
+            .value(dataObj.config1.key1)
+            .value('value1')
+            .are.equal;
+          battery.test('env1-value2-2')
+            .value(dataObj.config1.key2)
+            .value('env1-value2-2')
+            .are.equal;
+          battery.test('test2-value3')
+            .value(dataObj.config1.key3)
+            .value('test2-value3')
+            .are.equal;
+          battery.test('config2-value1')
+            .value(dataObj.config2.key1)
+            .value('config2-value1')
+            .are.equal;
+          resolve();
+        } else {
+          reject(`code ${code}`);
+        }
+      });
+    })
+    .then(() => {
+      battery.done(done)
+    })
+    .catch((reason) => {
+      battery.test('exception during test')
+        .value(false).is.true;
+      console.error(reason);
+    })
+  });
+
 });
 
 describe('constructor and bind', function() {
@@ -420,4 +470,5 @@ describe('constructor and bind', function() {
       .value('config2-value1')
       .are.equal;
   });
+
 });

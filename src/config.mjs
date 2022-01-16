@@ -23,7 +23,7 @@ class Config {
    */
   constructor(options) {
     if (_.isNil(options.configs)) {
-      throw new Error('configs required');
+      throw 'configs required';
     } else if (Array.isArray(options.configs)) {
       this.#configs = options.configs.reverse();
     } else {
@@ -73,8 +73,7 @@ class Config {
   static #fromArgsErrors(fileErrors, parseErrors) {
     if (fileErrors.length || parseErrors.length) {
       let errorObj = {
-        message: "Error loading config files",
-        configFilenames,
+        message: "Error loading config files"
       };
       if (fileErrors.length) {
         errorObj.fileErrors = fileErrors;
@@ -82,7 +81,7 @@ class Config {
       if (parseErrors.length) {
         errorObj.parseErrors = parseErrors;
       }
-      throw new Error(errorObj);
+      throw errorObj;
     }
   }
 

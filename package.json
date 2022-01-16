@@ -1,6 +1,6 @@
 {
   "name": "per-env-config",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "Collects configs from multiple sources and handles overrides per environment.",
   "type": "module",
   "main": "src/config.mjs",
